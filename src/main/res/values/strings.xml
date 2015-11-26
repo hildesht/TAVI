@@ -7,5 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="Gal_txt_label">Gallons:</string>
     <string name="mpg_txt">MPG</string>
+    <string name="title_activity_add_car">AddCarActivity</string>
 
 </resources>

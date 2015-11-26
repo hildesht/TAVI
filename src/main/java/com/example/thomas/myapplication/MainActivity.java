@@ -1,6 +1,9 @@
 package com.example.thomas.myapplication;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,54 +20,58 @@ import org.json.JSONObject;
 //Global Var
 
 public class MainActivity extends Activity {
-    private static JSONObject json_data;
-    private static String file_name = "car_data.txt";
-    private static String orig_json = "{\n" +
-            "    \"Cars\": {\n" +
-            "        \"Vinny\": {\n" +
-            "            \"MPG\": {\n" +
-//            "                \"1\":{\n" +
-//            "                    \"date\":\"11/02/2014\",\n" +
-//            "                    \"mpg\":\"29.6\"\n" +
-//            "                }\n" +
-            "            }\n" +
-            "        }\n" +
-            "    }\n" +
-            "}";
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
 
+    private DataStorageContract.DbHelper mDbHelper = new DataStorageContract.DbHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*TODO move this to add mpg page
         Button clickButton = (Button) findViewById(R.id.calc_btn);
         clickButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-//                Log.d("OnClick", "Begin");
                 // TODO Auto-generated method stub
                 //***Do what you want with the click here***
 
                 //test
-                //database();
+                // Gets the data repository in write mode
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+                // Create a new map of values, where column names are the keys
+                ContentValues values = new ContentValues();
+                values.put(DataStorageContract.CarEntry.COLUMN_NAME, "");
+                values.put(DataStorageContract.CarEntry.COLUMN_MAKE, "");
+                values.put(DataStorageContract.CarEntry.COLUMN_MODEL, "");
+
+
             }
         });
+        */
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void database() {
-        DataStorageContract.DbHelper mDbHelper = new DataStorageContract.DbHelper(this);
-    }
 
+    /**
+     * When the user clicks the add vehicle button.
+     * @param {View} view
+     */
+    public void addCar(View view) {
+        Intent intent = new Intent(this, AddCarActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,6 +79,7 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -84,6 +92,7 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onStart() {
@@ -104,6 +113,7 @@ public class MainActivity extends Activity {
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
+
 
     @Override
     public void onStop() {

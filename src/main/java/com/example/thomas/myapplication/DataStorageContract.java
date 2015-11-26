@@ -13,10 +13,10 @@ public final class DataStorageContract {
     /* Inner class that defines the table contents */
     public static abstract class CarEntry implements BaseColumns {
         public static final String TABLE_NAME = "cars";
-        public static final String COLUMN_NAME_NAME = "name";
-        public static final String COLUMN_NAME_MAKE = "make";
-        public static final String COLUMN_NAME_MODEL = "model";
-        public static final String COLUMN_NAME_YEAR = "year";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_MAKE = "make";
+        public static final String COLUMN_MODEL = "model";
+        public static final String COLUMN_YEAR = "year";
     }
 
     private static final String TEXT_TYPE = " TEXT";
@@ -24,10 +24,10 @@ public final class DataStorageContract {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + CarEntry.TABLE_NAME + " (" +
                     CarEntry._ID + " INTEGER PRIMARY KEY," +
-                    CarEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    CarEntry.COLUMN_NAME_MAKE + TEXT_TYPE + COMMA_SEP +
-                    CarEntry.COLUMN_NAME_MODEL + TEXT_TYPE + COMMA_SEP +
-                    CarEntry.COLUMN_NAME_YEAR + TEXT_TYPE + COMMA_SEP +
+                    CarEntry.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                    CarEntry.COLUMN_MAKE + TEXT_TYPE + COMMA_SEP +
+                    CarEntry.COLUMN_MODEL + TEXT_TYPE + COMMA_SEP +
+                    CarEntry.COLUMN_YEAR + TEXT_TYPE + COMMA_SEP +
             " )";
 
     private static final String SQL_DELETE_ENTRIES =
