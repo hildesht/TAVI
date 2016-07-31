@@ -1,21 +1,15 @@
 package com.example.thomas.myapplication;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.json.JSONObject;
 
 //Global Var
 
@@ -27,14 +21,15 @@ public class MainActivity extends Activity {
      */
     private GoogleApiClient client;
 
-    private DataStorageContract.DbHelper mDbHelper = new DataStorageContract.DbHelper(this);
+    private DataStorageContract.DbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDbHelper = DataStorageContract.DbHelper.getInstance(this);
 
-        /*TODO move this to add mpg page
+        /*//TODO move this to add mpg page
         Button clickButton = (Button) findViewById(R.id.calc_btn);
         clickButton.setOnClickListener(new View.OnClickListener() {
 
@@ -44,32 +39,30 @@ public class MainActivity extends Activity {
                 //***Do what you want with the click here***
 
                 //test
-                // Gets the data repository in write mode
-                SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-                // Create a new map of values, where column names are the keys
-                ContentValues values = new ContentValues();
-                values.put(DataStorageContract.CarEntry.COLUMN_NAME, "");
-                values.put(DataStorageContract.CarEntry.COLUMN_MAKE, "");
-                values.put(DataStorageContract.CarEntry.COLUMN_MODEL, "");
-
-
             }
         });
         */
+        String favCar = mDbHelper.getFavoriteCar();
+//        if (favCar != null) {
+        if (favCar == null) {
+            this.openCarPage(favCar);
+        } else {
+            this.openCarSelectionPage();
+        }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    private void openCarSelectionPage() {
+        Intent intent = new Intent(this, CarSelectionActivity.class);
+        startActivity(intent);
+    }
 
-    /**
-     * When the user clicks the add vehicle button.
-     * @param {View} view
-     */
-    public void addCar(View view) {
-        Intent intent = new Intent(this, AddCarActivity.class);
+    private void openCarPage(String favCar) {
+        //TODO figure out have to pass param to activity
+        Intent intent = new Intent(this, CarActivity.class);
         startActivity(intent);
     }
 

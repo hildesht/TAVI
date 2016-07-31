@@ -8,5 +8,7 @@
     <string name="Gal_txt_label">Gallons:</string>
     <string name="mpg_txt">MPG</string>
     <string name="title_activity_add_car">AddCarActivity</string>
+    <string name="title_activity_car">CarActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

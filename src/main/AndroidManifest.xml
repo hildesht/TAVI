@@ -10,7 +10,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -21,12 +21,17 @@
 
         <activity
             android:name=".AddCarActivity"
+            android:icon="@android:drawable/ic_input_add"
             android:label="Add Vehicle"
-            android:parentActivityName="com.example.thomas.myapplication.MainActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.thomas.myapplication.MainActivity" />
         </activity>
+        <activity
+            android:name=".CarActivity"
+            android:label="@string/title_activity_car" />
+        <activity android:name=".CarSelectionActivity"></activity>
     </application>
 
 </manifest>
