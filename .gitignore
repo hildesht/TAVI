@@ -1,3 +1,7 @@
+.idea
+
+### Defaults from initial project below ###
+
 /build
 # Built application files
 *.apk
