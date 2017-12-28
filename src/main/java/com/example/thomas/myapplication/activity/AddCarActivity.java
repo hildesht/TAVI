@@ -1,26 +1,26 @@
-package com.example.thomas.myapplication;
+package com.example.thomas.myapplication.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.thomas.myapplication.R;
+import com.example.thomas.myapplication.service.CarService;
+
 public class AddCarActivity extends Activity {
 
-    private DataStorageContract.DbHelper mDbHelper;
+    private CarService carService = CarService.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
-        mDbHelper = DataStorageContract.DbHelper.getInstance(this);
     }
 
     /**
@@ -37,7 +37,7 @@ public class AddCarActivity extends Activity {
      */
     public void saveCar(View view) {
         // Gets the data repository in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         EditText etn = (EditText)findViewById(R.id.editTextName);
         String carName = etn.getText().toString();
@@ -46,19 +46,18 @@ public class AddCarActivity extends Activity {
         EditText etmo = (EditText)findViewById(R.id.editTextModel);
         String carModel = etmo.getText().toString();
         EditText ety = (EditText)findViewById(R.id.editTextYear);
-        String carYear = ety.getText().toString();
+        Integer carYear = Integer.getInteger(ety.getText().toString());
 
         Button addVehicle = (Button)findViewById(R.id.buttonAdd);
         addVehicle.setEnabled(false);
         try {
-            mDbHelper.createCar(carName, carMake, carModel, carYear);
+            carService.createCar(carName, carMake, carModel, carYear);
             alertUser("Success", "Vehicle " + carName + " created successfully.", AddCarActivity.this);
         } catch (android.database.sqlite.SQLiteConstraintException e){
             Log.d("Caught Query e", e.toString());
             alertUser("Error", e.toString(), AddCarActivity.this);
         }
         addVehicle.setEnabled(true);
-        mDbHelper.debugAllCars();
 
     }
 

@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main" />
         <!--
@@ -20,18 +20,18 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".AddCarActivity"
+            android:name=".activity.AddCarActivity"
             android:icon="@android:drawable/ic_input_add"
             android:label="Add Vehicle"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.thomas.myapplication.MainActivity" />
+                android:value="com.example.thomas.myapplication.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".CarActivity"
+            android:name=".activity.CarActivity"
             android:label="@string/title_activity_car" />
-        <activity android:name=".CarSelectionActivity"></activity>
+        <activity android:name=".activity.CarSelectionActivity"></activity>
     </application>
 
 </manifest>

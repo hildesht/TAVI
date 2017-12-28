@@ -1,13 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 27
 
     defaultConfig {
         applicationId "com.example.thomas.myapplication"
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -18,20 +16,30 @@ android {
             debuggable true
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
-    compile 'com.android.support:support-v13:23.1.1'
+    compile 'com.google.firebase:firebase-appindexing:11.0.4'
+    compile 'com.android.support:support-v13:+'
+    compile 'android.arch.persistence.room:runtime:+'
+    annotationProcessor 'android.arch.persistence.room:compiler:+'
 }
 
 buildscript {
     repositories {
         jcenter()
+        google()
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:2.3.3"
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
+}
+repositories {
+    google()
 }

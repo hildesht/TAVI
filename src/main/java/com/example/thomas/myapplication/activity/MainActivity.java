@@ -1,4 +1,4 @@
-package com.example.thomas.myapplication;
+package com.example.thomas.myapplication.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.thomas.myapplication.R;
+import com.example.thomas.myapplication.dao.entity.Car;
+import com.example.thomas.myapplication.service.CarService;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,13 +24,13 @@ public class MainActivity extends Activity {
      */
     private GoogleApiClient client;
 
-    private DataStorageContract.DbHelper mDbHelper;
+    private CarService carService = CarService.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDbHelper = DataStorageContract.DbHelper.getInstance(this);
+
 
         /*//TODO move this to add mpg page
         Button clickButton = (Button) findViewById(R.id.calc_btn);
@@ -42,10 +45,9 @@ public class MainActivity extends Activity {
             }
         });
         */
-        String favCar = mDbHelper.getFavoriteCar();
-//        if (favCar != null) {
-        if (favCar == null) {
-            this.openCarPage(favCar);
+        Car favCar = carService.getFavoriteCar(1);
+        if (favCar != null) {
+            this.openCarPage(favCar.getName());
         } else {
             this.openCarSelectionPage();
         }
